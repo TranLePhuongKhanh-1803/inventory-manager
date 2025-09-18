@@ -1,0 +1,68 @@
+<%- include('partials/header') %>
+
+    <h1>Products</h1>
+
+    <% if (!currentUser) { %>
+        <div class="login-box">
+            <h3>Login to manage products</h3>
+            <form action="/login" method="POST" class="login-form">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p>Or <a href="/register">Register</a></p>
+        </div>
+        <% } %>
+
+            <form method="GET" action="/" class="search-form">
+                <select name="supplier">
+    <option value="">-- All suppliers --</option>
+    <% suppliers.forEach(s => { %>
+      <option value="<%= s._id %>" <%= selectedSupplier==s._id ? 'selected' : '' %>><%= s.name %></option>
+    <% }) %>
+  </select>
+                <input type="text" name="q" value="<%= q %>" placeholder="Search product by name">
+                <button>Search</button>
+
+                <% if (currentUser) { %>
+                    <a class="btn" href="/products/new">Add Product</a>
+                    <% } %>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Supplier</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% products.forEach(p => { %>
+                        <tr>
+                            <td>
+                                <%= p.name %>
+                            </td>
+                            <td>
+                                <%= p.price %>
+                            </td>
+                            <td>
+                                <%= p.quantity %>
+                            </td>
+                            <td>
+                                <%= p.supplierId ? p.supplierId.name : '' %>
+                            </td>
+                            <td>
+                                <a href="/products/<%= p._id %>/edit">Edit</a>
+                                <form method="POST" action="/products/<%= p._id %>?_method=DELETE" style="display:inline">
+                                    <button>Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+
+            <%- include('partials/footer') %>

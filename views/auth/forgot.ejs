@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+    <h1>Forgot Password</h1>
+    <% if (error) { %>
+        <p class="error">
+            <%= error %>
+        </p>
+        <% } %>
+            <% if (message) { %>
+                <p class="message">
+                    <%= message %>
+                </p>
+                <% } %>
+                    <form method="POST" action="/forgot">
+                        <input name="email" placeholder="Your registered email" required/>
+                        <button>Send Reset Token</button>
+                    </form>
+                    <%- include('../partials/footer') %>

@@ -1,0 +1,163 @@
+/* ===== General ===== */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f6f8;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+
+/* ===== Header ===== */
+
+.site-header {
+    background: #2c3e50;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.site-header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.site-header nav a,
+.site-header nav span {
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    background: #3498db;
+    transition: 0.3s;
+}
+
+.site-header nav a:hover {
+    background: #2980b9;
+}
+
+
+/* ===== Form ===== */
+
+.login-box,
+.search-form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+.login-box h2 {
+    margin-top: 0;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.login-form input,
+.search-form input,
+.search-form select {
+    padding: 8px 12px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-form button,
+.search-form button,
+.btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-form button:hover,
+.search-form button:hover,
+.btn:hover {
+    background: #2980b9;
+}
+
+
+/* ===== Table ===== */
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.data-table th,
+.data-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.data-table th {
+    background: #2c3e50;
+    color: white;
+}
+
+.data-table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.data-table tr:hover {
+    background: #e1f5fe;
+}
+
+.data-table button {
+    background: #e74c3c;
+    color: white;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.data-table button:hover {
+    background: #c0392b;
+}
+
+
+/* ===== Responsive ===== */
+
+@media (max-width: 768px) {
+    .site-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .search-form input,
+    .search-form select {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .data-table th,
+    .data-table td {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        <%= title || 'Inventory' %>
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="container header-container">
+            <h2 class="logo"><a href="/">Inventory</a></h2>
+            <nav>
+
+                <% if (!currentUser) { %>
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                    <% } else { %>
+                        <span class="muted">Hello, <%= currentUser.username %></span>
+                        <a href="/logout">Logout</a>
+                        <% } %>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
