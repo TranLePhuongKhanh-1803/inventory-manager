@@ -1,13 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const ctrl = require('../controllers/supplierController');
-const { isLoggedIn } = require('../middlewares/auth');
+const supplierController = require('../controllers/supplierController');
+const { isLoggedIn, isAdmin } = require('../middlewares/auth');
 
-router.get('/suppliers', ctrl.index);
-router.get('/suppliers/new', isLoggedIn, ctrl.newForm);
-router.post('/suppliers', isLoggedIn, ctrl.create);
-router.get('/suppliers/:id/edit', isLoggedIn, ctrl.editForm);
-router.put('/suppliers/:id', isLoggedIn, ctrl.update);
-router.delete('/suppliers/:id', isLoggedIn, ctrl.delete);
+// Hiển thị danh sách nhà cung cấp (chỉ user login)
+router.get('/', isLoggedIn, supplierController.index);
+
+// Thêm nhà cung cấp
+router.get('/new', isLoggedIn, supplierController.newForm);
+router.post('/', isLoggedIn, supplierController.create);
+
+// Sửa nhà cung cấp
+router.get('/:id/edit', isLoggedIn, supplierController.editForm);
+router.put('/:id', isLoggedIn, supplierController.update);
+
+// Xóa nhà cung cấp
+router.delete('/:id', isLoggedIn, supplierController.delete);
 
 module.exports = router;

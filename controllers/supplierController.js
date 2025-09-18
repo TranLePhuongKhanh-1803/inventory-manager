@@ -1,29 +1,65 @@
 const Supplier = require('../models/Supplier');
 
 exports.index = async(req, res) => {
-    const suppliers = await Supplier.find().sort('name').lean();
-    res.render('suppliers/index', { suppliers });
+    try {
+        const suppliers = await Supplier.find().sort('name').lean();
+        res.render('suppliers/index', {
+            suppliers,
+            selectedSupplier: req.query.supplier || '',
+            q: req.query.q || '',
+            products: [],
+            currentUser: req.session.user || null // <-- quan trọng
+        });
+    } catch (err) {
+        console.error(err);
+        res.send('Error loading suppliers');
+    }
 };
 
-exports.newForm = (req, res) => res.render('suppliers/form', { supplier: {}, action: '/suppliers', method: 'POST' });
+exports.newForm = (req, res) => {
+    res.render('suppliers/form', {
+        action: '/suppliers',
+        supplier: {},
+        error: null // <-- thêm dòng này
+    });
+};
+
 
 exports.create = async(req, res) => {
-    await Supplier.create(req.body);
-    res.redirect('/suppliers');
+    try {
+        const { name, address, phone } = req.body;
+        const last = await Supplier.findOne().sort({ code: -1 }).lean();
+        const lastNum = last ? parseInt(last.code.replace('SUP', '')) : 0;
+        const code = 'SUP' + String(lastNum + 1).padStart(3, '0');
+
+        await Supplier.create({ name, address, phone, code });
+        res.redirect('/suppliers');
+    } catch (err) {
+        console.error(err);
+        res.send('Error creating supplier');
+    }
 };
 
 exports.editForm = async(req, res) => {
-    const supplier = await Supplier.findById(req.params.id).lean();
-    if (!supplier) return res.redirect('/suppliers');
-    res.render('suppliers/form', { supplier, action: `/suppliers/${supplier._id}?_method=PUT`, method: 'POST' });
+    const { id } = req.params;
+    const supplier = await Supplier.findById(id).lean();
+    res.render('suppliers/form', {
+        action: `/suppliers/${id}?_method=PUT`,
+        supplier,
+        error: null // <-- thêm dòng này
+    });
 };
 
+
 exports.update = async(req, res) => {
-    await Supplier.findByIdAndUpdate(req.params.id, req.body);
+    const { id } = req.params;
+    const { name, address, phone } = req.body;
+    await Supplier.findByIdAndUpdate(id, { name, address, phone });
     res.redirect('/suppliers');
 };
 
 exports.delete = async(req, res) => {
-    await Supplier.findByIdAndDelete(req.params.id);
+    const { id } = req.params;
+    await Supplier.findByIdAndDelete(id);
     res.redirect('/suppliers');
 };

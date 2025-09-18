@@ -1,7 +1,7 @@
+// middleware/auth.js
 module.exports.isLoggedIn = (req, res, next) => {
     if (req.session && req.session.user) return next();
-    // redirect to index where login form is shown (or /login)
-    return res.redirect('/');
+    return res.redirect('/login'); // chưa login → chuyển đến login
 };
 
 module.exports.isAdmin = (req, res, next) => {

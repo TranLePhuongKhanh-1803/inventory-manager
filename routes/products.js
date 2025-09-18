@@ -1,13 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const ctrl = require('../controllers/productController');
+const productController = require('../controllers/productController');
 const { isLoggedIn } = require('../middlewares/auth');
 
-router.get('/', ctrl.index); // homepage shows products
-router.get('/products/new', isLoggedIn, ctrl.newForm);
-router.post('/products', isLoggedIn, ctrl.create);
-router.get('/products/:id/edit', isLoggedIn, ctrl.editForm);
-router.put('/products/:id', isLoggedIn, ctrl.update);
-router.delete('/products/:id', isLoggedIn, ctrl.delete);
+// Hiển thị danh sách sản phẩm
+router.get('/', productController.index);
+
+// Thêm sản phẩm
+router.get('/new', isLoggedIn, productController.newForm);
+router.post('/', isLoggedIn, productController.create);
+
+// Sửa sản phẩm
+router.get('/:id/edit', isLoggedIn, productController.editForm);
+router.put('/:id', isLoggedIn, productController.update);
+
+// Xóa sản phẩm
+router.delete('/:id', isLoggedIn, productController.delete);
 
 module.exports = router;
